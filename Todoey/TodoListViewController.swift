@@ -51,6 +51,9 @@ class TodoListViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
         
+        // Change the color of alert controller according to dark mode or light mode
+        alert.view.tintColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
+
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Create new item"
         }

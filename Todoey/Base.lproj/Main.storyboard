@@ -25,6 +25,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="tintColor" systemColor="labelColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -34,7 +35,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Todoey" id="ciw-1s-CRM">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="nqP-kH-HEy">
-                            <imageReference key="image" image="plus.app.fill" catalog="system" symbolScale="large" renderingMode="hierarchical">
+                            <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large" renderingMode="hierarchical">
                                 <hierarchicalColors>
                                     <color systemColor="labelColor"/>
                                     <color systemColor="secondaryLabelColor"/>
@@ -72,7 +73,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.app.fill" catalog="system" width="128" height="114"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
