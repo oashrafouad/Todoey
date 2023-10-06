@@ -48,15 +48,19 @@ class TodoListViewController: UITableViewController {
     }
     
     // Swipe to delete action
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "hello"
-    }
-    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
-            self.itemArray.remove(at: indexPath.row)
-            self.saveItems()
+            let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+            { _ in 
+                self.itemArray.remove(at: indexPath.row)
+                self.saveItems()
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alert.addAction(deleteAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
