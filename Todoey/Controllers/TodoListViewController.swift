@@ -9,29 +9,14 @@
 import UIKit
 
 class TodoListViewController: UITableViewController {
-
-    var defaults = UserDefaults.standard
+    
     var itemArray = [Item]()
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let newItem1 = Item()
-        newItem1.title = "Item1"
-        itemArray.append(newItem1)
-        
-        let newItem2 = Item()
-        newItem2.title = "Item2"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Item3"
-        itemArray.append(newItem3)
-        
-        if let array = defaults.array(forKey: "TodoListArray") as? [Item]
-        {
-            itemArray = array
-        }
+        loadItems()
     }
 
     //MARK: - UITableViewDataSource
@@ -56,6 +41,7 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Toggle between checking and unchecking a cell
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        saveItems()
         
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
@@ -70,8 +56,7 @@ class TodoListViewController: UITableViewController {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             self.itemArray.remove(at: indexPath.row)
-            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            self.tableView.reloadData()
+            self.saveItems()
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
@@ -98,8 +83,7 @@ class TodoListViewController: UITableViewController {
             let item = Item()
             item.title = textField.text!
             self.itemArray.append(item)
-//            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            self.tableView.reloadData()
+            self.saveItems()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -110,4 +94,34 @@ class TodoListViewController: UITableViewController {
         
     }
     
+    func saveItems()
+    {
+        let encoder = PropertyListEncoder()
+        do
+        {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        }
+        catch
+        {
+            print("Error encoding items into plist: \(error)")
+        }
+        self.tableView.reloadData()
+    }
+    
+    func loadItems()
+    {
+        if let data = try? Data(contentsOf: dataFilePath!)
+        {
+            let decoder = PropertyListDecoder()
+            do
+            {
+                itemArray = try decoder.decode([Item].self, from: data)
+            }
+            catch
+            {
+                print("Error decoding plist into items: \(error)")
+            }
+        }
+    }
 }
