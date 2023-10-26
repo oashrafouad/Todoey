@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadItems()
     }
 
@@ -84,7 +86,7 @@ class TodoListViewController: UITableViewController {
 
         let addAction = UIAlertAction(title: "Add Item", style: .default) { action in
             let textField = alert.textFields![0]
-            let item = Item()
+            let item = Item(context: self.context)
             item.title = textField.text!
             self.itemArray.append(item)
             self.saveItems()
@@ -95,37 +97,31 @@ class TodoListViewController: UITableViewController {
         alert.addAction(addAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
-        
     }
     
     func saveItems()
     {
-        let encoder = PropertyListEncoder()
         do
         {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         }
         catch
         {
-            print("Error encoding items into plist: \(error)")
+            print("Error saving context: \(error)")
         }
         self.tableView.reloadData()
     }
     
     func loadItems()
     {
-        if let data = try? Data(contentsOf: dataFilePath!)
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        do
         {
-            let decoder = PropertyListDecoder()
-            do
-            {
-                itemArray = try decoder.decode([Item].self, from: data)
-            }
-            catch
-            {
-                print("Error decoding plist into items: \(error)")
-            }
+            itemArray = try context.fetch(request)
+        }
+        catch
+        {
+            print("Error reading data from context: \(error)")
         }
     }
 }

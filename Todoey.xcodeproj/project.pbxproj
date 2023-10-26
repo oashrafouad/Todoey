@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		076E121E2ACFE7410042CE47 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 076E121C2ACFE7410042CE47 /* DataModel.xcdatamodeld */; };
-		07BB8D032ACDB3B9007BA6D5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB8D022ACDB3B9007BA6D5 /* Item.swift */; };
 		EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4F9239524DB00FB933B /* AppDelegate.swift */; };
 		EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */; };
 		EB2BE501239524DB00FB933B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE4FF239524DB00FB933B /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 
 /* Begin PBXFileReference section */
 		076E121D2ACFE7410042CE47 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		07BB8D022ACDB3B9007BA6D5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		EB2BE4F6239524DB00FB933B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE4F9239524DB00FB933B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +40,6 @@
 		07BB8D042ACDB41B007BA6D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				07BB8D022ACDB3B9007BA6D5 /* Item.swift */,
 				076E121C2ACFE7410042CE47 /* DataModel.xcdatamodeld */,
 			);
 			path = Models;
@@ -176,7 +173,6 @@
 			files = (
 				EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */,
 				076E121E2ACFE7410042CE47 /* DataModel.xcdatamodeld in Sources */,
-				07BB8D032ACDB3B9007BA6D5 /* Item.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
