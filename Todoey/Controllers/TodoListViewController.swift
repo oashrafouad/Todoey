@@ -45,8 +45,9 @@ class TodoListViewController: UITableViewController {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         
-        tableView.reloadData()
-        tableView.deselectRow(at: indexPath, animated: true)
+//        tableView.reloadData()
+        // Not needed as reloadData deselects all rows
+//        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // Swipe to delete action
@@ -55,7 +56,8 @@ class TodoListViewController: UITableViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
-            { _ in 
+            { _ in
+                self.context.delete(self.itemArray[indexPath.row])
                 self.itemArray.remove(at: indexPath.row)
                 self.saveItems()
             }
