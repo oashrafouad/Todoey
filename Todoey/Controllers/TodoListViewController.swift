@@ -21,7 +21,7 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadItems()
-//        searchBar.delegate = self
+        searchBar.delegate = self
     }
 
     //MARK: - UITableViewDataSource
@@ -117,9 +117,8 @@ class TodoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func loadItems()
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest())
     {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
         do
         {
             itemArray = try context.fetch(request)
@@ -128,6 +127,7 @@ class TodoListViewController: UITableViewController {
         {
             print("Error reading data from context: \(error)")
         }
+        tableView.reloadData()
     }
 }
 
@@ -135,41 +135,9 @@ extension TodoListViewController: UISearchBarDelegate
 {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        request.predicate = predicate
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
-        
-//        let result = fetchItemsFromContext(request: request)
-        do
-        {
-            let result = try context.fetch(request)
-//            print(result)
-            itemArray = result
-            
-            tableView.reloadData()
-
-        }
-        catch
-        {
-            print(error)
-        }
-    }
-    
-    func fetchItemsFromContext(request: NSFetchRequest<Item>) -> [Item]
-    {
-        var items: [Item] = []
-        
-        do
-        {
-            items = try context.fetch(request)
-        
-        }
-        catch
-        {
-            print("Error reading data from context: \(error)")
-        }
-        
-        return items
+        loadItems(with: request)
     }
     
 //    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
