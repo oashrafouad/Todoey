@@ -15,10 +15,13 @@ class TodoListViewController: UITableViewController {
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadItems()
+//        searchBar.delegate = self
     }
 
     //MARK: - UITableViewDataSource
@@ -126,4 +129,66 @@ class TodoListViewController: UITableViewController {
             print("Error reading data from context: \(error)")
         }
     }
+}
+
+extension TodoListViewController: UISearchBarDelegate
+{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = predicate
+        
+        
+//        let result = fetchItemsFromContext(request: request)
+        do
+        {
+            let result = try context.fetch(request)
+//            print(result)
+            itemArray = result
+            
+            tableView.reloadData()
+
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
+    func fetchItemsFromContext(request: NSFetchRequest<Item>) -> [Item]
+    {
+        var items: [Item] = []
+        
+        do
+        {
+            items = try context.fetch(request)
+        
+        }
+        catch
+        {
+            print("Error reading data from context: \(error)")
+        }
+        
+        return items
+    }
+    
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        let request: NSFetchRequest<Item> = Item.fetchRequest()
+//        do
+//        {
+//            print("cancelled")
+//            let result = try context.fetch(request)
+//            itemArray = result
+//            tableView.reloadData()
+//            searchBar.endEditing(true)
+//
+//        }
+//        catch
+//        {
+//            print(error)
+//        }
+//    }
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        print("ended")
+//    }
 }
