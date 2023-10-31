@@ -133,30 +133,34 @@ class TodoListViewController: UITableViewController {
 
 extension TodoListViewController: UISearchBarDelegate
 {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
-        loadItems(with: request)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+
     }
     
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//        do
-//        {
-//            print("cancelled")
-//            let result = try context.fetch(request)
-//            itemArray = result
-//            tableView.reloadData()
-//            searchBar.endEditing(true)
-//
-//        }
-//        catch
-//        {
-//            print(error)
-//        }
-//    }
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        print("ended")
-//    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = ""
+        loadItems()
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.isEmpty == true
+        {
+            loadItems()
+        }
+        else
+        {
+            let request: NSFetchRequest<Item> = Item.fetchRequest()
+            request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+            loadItems(with: request)
+        }
+    }
 }
