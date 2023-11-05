@@ -11,18 +11,18 @@ import CoreData
 
 class CategoryViewController: UITableViewController {
     
-//    let categories: [Item] = [Item()]
+    //    let categories: [Item] = [Item()]
     var categoryArray: [`Category`] = [`Category`]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(dataFilePath)
         loadCategories()
-    
-
+        
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,8 +31,8 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let item = categoryArray[indexPath.row]
-        cell.textLabel?.text = item.name
+        let category = categoryArray[indexPath.row]
+        cell.textLabel?.text = category.name
         
         return cell
     }
@@ -41,6 +41,14 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: perform segue to items in this category
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+        let indexPath = tableView.indexPathForSelectedRow
+        
+        destinationVC.selectedCategory = categoryArray[indexPath!.row]
     }
     
     // Swipe to delete action
@@ -91,20 +99,20 @@ class CategoryViewController: UITableViewController {
             print("Error reading data from context: \(error)")
         }
         tableView.reloadData()
-
+        
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-     
+        
         let alert = UIAlertController(title: "Add New Todoey Category", message: "", preferredStyle: .alert)
         
         // Change the color of alert controller according to dark mode or light mode
         alert.view.tintColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
-
+        
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Create new category"
         }
-
+        
         let addAction = UIAlertAction(title: "Add Category", style: .default) { action in
             let textField = alert.textFields![0]
             let category = Category(context: self.context)
@@ -120,3 +128,4 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true)
     }
 }
+
