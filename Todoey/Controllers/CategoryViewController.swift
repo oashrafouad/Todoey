@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import RealmSwift
 
 class CategoryViewController: UITableViewController {
@@ -15,7 +14,8 @@ class CategoryViewController: UITableViewController {
     let realm = try! Realm()
     
     //    let categories: [Item] = [Item()]
-    var categoryArray: Results<Category>!
+    //TODO: Make this an optional
+    var categories: Results<Category>!
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     
@@ -27,12 +27,12 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        return categories.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let category = categoryArray[indexPath.row]
+        let category = categories[indexPath.row]
         cell.textLabel?.text = category.name
         
         return cell
@@ -45,12 +45,12 @@ class CategoryViewController: UITableViewController {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationVC = segue.destination as! TodoListViewController
-//        let indexPath = tableView.indexPathForSelectedRow
-//        
-//        destinationVC.selectedCategory = categoryArray[indexPath!.row]
-//    }
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       let destinationVC = segue.destination as! TodoListViewController
+       let indexPath = tableView.indexPathForSelectedRow
+       
+       destinationVC.selectedCategory = categories[indexPath!.row]
+   }
     
     // Swipe to delete action
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -93,7 +93,7 @@ class CategoryViewController: UITableViewController {
     func loadCategories()
     {
         
-        categoryArray = realm.objects(Category.self)
+        categories = realm.objects(Category.self)
 //        categoryArray = Array(categoryResults)
         
         tableView.reloadData()
