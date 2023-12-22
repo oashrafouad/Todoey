@@ -76,18 +76,27 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
-//            let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
-//            let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
-//            { _ in
-//                self.context.delete(self.itemArray[indexPath.row])
-//                self.itemArray.remove(at: indexPath.row)
-//                self.saveItem()
-//            }
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//            alert.addAction(deleteAction)
-//            alert.addAction(cancelAction)
-//            self.present(alert, animated: true)
-//            completionHandler(true)
+            let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+            { _ in
+                do
+                {
+                    try self.realm.write {
+                        self.realm.delete(self.todoItems[indexPath.row])
+                    }
+                    tableView.reloadData()
+                }
+                catch
+                {
+                    print("Error deleting item: \(error)")
+                }
+
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alert.addAction(deleteAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
+            completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
         
@@ -140,7 +149,6 @@ class TodoListViewController: UITableViewController {
     {
         
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
-        print(todoItems)
 //        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
 //        if let additionalPredicate = predicate
 //        {

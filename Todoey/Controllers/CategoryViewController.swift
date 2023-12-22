@@ -56,18 +56,34 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
-            let alert = UIAlertController(title: "Delete Category", message: "Are you sure you want to delete this category?", preferredStyle: .alert)
-//            let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
-//            { _ in
-//                self.context.delete(self.categoryArray[indexPath.row])
-//                self.categoryArray.remove(at: indexPath.row)
-//                self.saveCategories()
-//            }
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//            alert.addAction(deleteAction)
-//            alert.addAction(cancelAction)
-//            self.present(alert, animated: true)
-//            completionHandler(true)
+            let alert = UIAlertController(title: "Delete Category", message: "Are you sure you want to delete this category and all items inside of it?", preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+            { _ in
+                do
+                {
+                    try self.realm.write {
+                        // Check if category has any items
+                        let category = self.categories[indexPath.row]
+                        if !category.items.isEmpty
+                        {
+                            // Delete all items in category
+                            self.realm.delete(category.items)
+                        }
+                        // Delete category
+                        self.realm.delete(category)
+                    }
+                    tableView.reloadData()
+                }
+                catch
+                {
+                    print("Error deleting category: \(error)")
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alert.addAction(deleteAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
+            completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
         
