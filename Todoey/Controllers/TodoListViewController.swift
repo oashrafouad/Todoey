@@ -148,7 +148,7 @@ class TodoListViewController: UITableViewController {
     func loadItems()
     {
         
-        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
 //        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
 //        if let additionalPredicate = predicate
 //        {
@@ -192,15 +192,14 @@ extension TodoListViewController: UISearchBarDelegate
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchBar.text?.isEmpty == true
-//        {
-//            loadItems()
-//        }
-//        else
-//        {
-//            let request: NSFetchRequest<Item> = Item.fetchRequest()
-//            let searchPredicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-//            loadItems(with: request, predicate: searchPredicate)
-//        }
+        if searchBar.text?.isEmpty == true
+        {
+            loadItems()
+        }
+        else
+        {
+            todoItems = todoItems.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+            tableView.reloadData()
+        }
     }
 }

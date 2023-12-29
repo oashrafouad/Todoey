@@ -24,6 +24,7 @@ class CategoryViewController: UITableViewController {
         print(dataFilePath)
         loadCategories()
         
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,12 +46,12 @@ class CategoryViewController: UITableViewController {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
     
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       let destinationVC = segue.destination as! TodoListViewController
-       let indexPath = tableView.indexPathForSelectedRow
-       
-       destinationVC.selectedCategory = categories[indexPath!.row]
-   }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+        let indexPath = tableView.indexPathForSelectedRow
+        
+        destinationVC.selectedCategory = categories[indexPath!.row]
+    }
     
     // Swipe to delete action
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -110,7 +111,7 @@ class CategoryViewController: UITableViewController {
     {
         
         categories = realm.objects(Category.self)
-//        categoryArray = Array(categoryResults)
+        //        categoryArray = Array(categoryResults)
         
         tableView.reloadData()
         
@@ -131,7 +132,7 @@ class CategoryViewController: UITableViewController {
             let textField = alert.textFields![0]
             let newCategory = Category()
             newCategory.name = textField.text!
-//            self.categoryArray.append(newCategory)
+            //self.categoryArray.append(newCategory)
             self.saveCategory(category: newCategory)
         }
         
@@ -142,4 +143,3 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true)
     }
 }
-
