@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: UITableViewController {
     let realm = try! Realm()
@@ -28,6 +29,9 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         searchBar.delegate = self
+        
+        tableView.rowHeight = 60
+        tableView.separatorStyle = .none
     }
 
     //MARK: - UITableViewDataSource
@@ -39,7 +43,13 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
         let item = todoItems[indexPath.row]
+        
         cell.textLabel?.text = item.title
+        
+        let categoryColor = UIColor(hexString: selectedCategory!.color)
+        let itemColor = categoryColor!.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems.count))
+        cell.backgroundColor = itemColor
+        cell.textLabel?.textColor = ContrastColorOf(itemColor!, returnFlat: true)
         
         // Check whether to place checkmark or not when drawing each cell
         cell.accessoryType = item.done ? .checkmark : .none
@@ -119,6 +129,7 @@ class TodoListViewController: UITableViewController {
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = textField.text!
+                        
                         self.selectedCategory!.items.append(newItem)
                     }
                 }

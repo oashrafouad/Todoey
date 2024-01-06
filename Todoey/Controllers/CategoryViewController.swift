@@ -21,6 +21,7 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
 //        print(dataFilePath)
         loadCategories()
+        
         tableView.rowHeight = 60
         tableView.separatorStyle = .none
     }
