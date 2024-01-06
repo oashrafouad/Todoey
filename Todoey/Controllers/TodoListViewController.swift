@@ -20,7 +20,7 @@ class TodoListViewController: UITableViewController {
         }
     }
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -63,13 +63,6 @@ class TodoListViewController: UITableViewController {
             }
         }
         tableView.reloadData()
-        
-//        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-//        saveItem()
-        
-//        tableView.reloadData()
-        // Not needed as reloadData deselects all rows
-//        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // Swipe to delete action
@@ -147,26 +140,8 @@ class TodoListViewController: UITableViewController {
     
     func loadItems()
     {
-        
         todoItems = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
-//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-//        if let additionalPredicate = predicate
-//        {
-//            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [categoryPredicate, additionalPredicate])
-//            request.predicate = compoundPredicate
-//        }
-//        else
-//        {
-//            request.predicate = categoryPredicate
-//        }
-//        do
-//        {
-//            itemArray = try context.fetch(request)
-//        }
-//        catch
-//        {
-//            print("Error reading data from context: \(error)")
-//        }
+        
         tableView.reloadData()
     }
 }
@@ -199,7 +174,6 @@ extension TodoListViewController: UISearchBarDelegate
         else
         {
             todoItems = todoItems.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
-            tableView.reloadData()
-        }
+            tableView.reloadData()        }
     }
 }

@@ -12,19 +12,14 @@ import RealmSwift
 class CategoryViewController: UITableViewController {
     
     let realm = try! Realm()
-    
-    //    let categories: [Item] = [Item()]
-    //TODO: Make this an optional
     var categories: Results<Category>!
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(dataFilePath)
+//        print(dataFilePath)
         loadCategories()
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,7 +97,7 @@ class CategoryViewController: UITableViewController {
         }
         catch
         {
-            print("Error saving context: \(error)")
+            print("Error saving category: \(error)")
         }
         tableView.reloadData()
     }
@@ -111,7 +106,6 @@ class CategoryViewController: UITableViewController {
     {
         
         categories = realm.objects(Category.self)
-        //        categoryArray = Array(categoryResults)
         
         tableView.reloadData()
         
@@ -132,7 +126,6 @@ class CategoryViewController: UITableViewController {
             let textField = alert.textFields![0]
             let newCategory = Category()
             newCategory.name = textField.text!
-            //self.categoryArray.append(newCategory)
             self.saveCategory(category: newCategory)
         }
         
