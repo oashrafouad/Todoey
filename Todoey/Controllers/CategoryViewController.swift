@@ -26,6 +26,14 @@ class CategoryViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // Clear the background color of navigation bar
+        navigationController?.navigationBar.backgroundColor = .none
+        navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
@@ -33,9 +41,13 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         let category = categories[indexPath.row]
-        cell.textLabel?.text = category.name
-        cell.backgroundColor = UIColor(hexString: category.color)
+        let categoryColor = UIColor(hexString: category.color)
         
+        cell.textLabel?.text = category.name
+        cell.backgroundColor = categoryColor
+        let contrastCategoryColor = ContrastColorOf(categoryColor!, returnFlat: true)
+        cell.textLabel?.textColor = contrastCategoryColor
+        cell.tintColor = contrastCategoryColor
         
         return cell
     }

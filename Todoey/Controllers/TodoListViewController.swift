@@ -20,10 +20,12 @@ class TodoListViewController: UITableViewController {
             loadItems()
         }
     }
+    var categoryColor = UIColor()
     
 //    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,25 @@ class TodoListViewController: UITableViewController {
         
         tableView.rowHeight = 60
         tableView.separatorStyle = .none
+        
+        categoryColor = UIColor(hexString: selectedCategory!.color)!
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        let contrastCategoryColor = ContrastColorOf(categoryColor, returnFlat: true)
+        
+        title = selectedCategory!.name
+        // Change title color
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: contrastCategoryColor]
+        
+        navigationController?.navigationBar.backgroundColor = categoryColor
+        navigationController?.navigationBar.tintColor = contrastCategoryColor
+        
+        addButton.tintColor = contrastCategoryColor
+        
+        searchBar.barTintColor = categoryColor.lighten(byPercentage: 0.3)
     }
 
     //MARK: - UITableViewDataSource
@@ -49,8 +70,11 @@ class TodoListViewController: UITableViewController {
         let categoryColor = UIColor(hexString: selectedCategory!.color)
         let itemColor = categoryColor!.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems.count))
         cell.backgroundColor = itemColor
-        cell.textLabel?.textColor = ContrastColorOf(itemColor!, returnFlat: true)
         
+        let contrastItemColor = ContrastColorOf(itemColor!, returnFlat: true)
+        cell.textLabel?.textColor = contrastItemColor
+        cell.tintColor = contrastItemColor
+
         // Check whether to place checkmark or not when drawing each cell
         cell.accessoryType = item.done ? .checkmark : .none
         
