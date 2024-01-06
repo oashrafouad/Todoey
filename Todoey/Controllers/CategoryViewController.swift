@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: UITableViewController {
     
@@ -20,6 +21,8 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
 //        print(dataFilePath)
         loadCategories()
+        tableView.rowHeight = 60
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,6 +33,8 @@ class CategoryViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         let category = categories[indexPath.row]
         cell.textLabel?.text = category.name
+        cell.backgroundColor = UIColor(hexString: category.color)
+        
         
         return cell
     }
@@ -124,8 +129,11 @@ class CategoryViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "Add Category", style: .default) { action in
             let textField = alert.textFields![0]
+            
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.color = UIColor.randomFlat().hexValue()
+            
             self.saveCategory(category: newCategory)
         }
         
