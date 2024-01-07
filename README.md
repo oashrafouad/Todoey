@@ -1,19 +1,25 @@
-![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
+<p align="center">
+  <a>
+    <img src="https://github.com/oashrafouad/Todoey/assets/31867324/621c5c13-78cc-4848-b345-3a55d385b356" width="20%">
+  </a>
+</p>
+
+This app is part of [Angela Yu's iOS Development Course](https://www.udemy.com/course/ios-13-app-development-bootcamp/), I learned **Core Data** and **Realm** covered by the course and learned to design an icon and animate a splash screen on my own! :)
+
+# Demo
 
 
-# Todoey ✓
-
-## Our Goal
-
-The objective of this tutorial is to understand how to save data in iOS. We'll look at various choices and learn to use UserDefaults, Core Data and Realm.
+https://github.com/oashrafouad/Todoey/assets/31867324/cbe74f49-265b-4468-bb15-f8738937cc38
 
 
-## What you will create
-
-A todolist app to keep track of all your tasks.
 
 
->This is a companion project to The App Brewery's Complete iOS Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
+# To run the app
 
-![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
-
+1. Clone the project
+  
+2. Run `pod install` and open the project from the generated `.xcworkspace` file
+  
+3. Go to Pods project settings on Xcode left pane then select ChameleonFramework target and change **minimum iOS deployment** version to 12.0
+  
+4. Now you can run the app!
