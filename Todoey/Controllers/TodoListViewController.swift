@@ -40,19 +40,15 @@ class TodoListViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        let contrastCategoryColor = ContrastColorOf(categoryColor, returnFlat: true)
         
         title = selectedCategory!.name
+        
         // Change title color
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: contrastCategoryColor]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: categoryColor]
         
-        navigationController?.navigationBar.backgroundColor = categoryColor
-        navigationController?.navigationBar.tintColor = contrastCategoryColor
+        navigationController?.navigationBar.tintColor = categoryColor
         
-        addButton.tintColor = contrastCategoryColor
-        
-        searchBar.barTintColor = categoryColor.lighten(byPercentage: 0.3)
+        addButton.tintColor = categoryColor
     }
 
     //MARK: - UITableViewDataSource
@@ -138,7 +134,7 @@ class TodoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
         
         // Change the color of alert controller according to dark mode or light mode
-        alert.view.tintColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
+        alert.view.tintColor = categoryColor
 
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Create new item"
