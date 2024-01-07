@@ -22,8 +22,8 @@ class LaunchViewController: UIViewController {
         view.addSubview(imageView)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         imageView.center = view.center
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.animate()
@@ -37,13 +37,14 @@ class LaunchViewController: UIViewController {
             let diffY = self.view.frame.size.height - size
             self.imageView.frame = CGRect(x: -(diffX / 2), y: diffY / 2, width: size, height: size)
         }
-        
+
         UIView.animate(withDuration: 0.7, animations:{
             self.imageView.alpha = 0
         }) { done in
             if done {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     let rootVC = self.storyboard?.instantiateViewController(identifier: "rootVC") as! UINavigationController
+
 
                     rootVC.modalTransitionStyle = .crossDissolve
                     rootVC.modalPresentationStyle = .fullScreen
