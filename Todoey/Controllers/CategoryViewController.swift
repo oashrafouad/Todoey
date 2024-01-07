@@ -31,6 +31,9 @@ class CategoryViewController: UITableViewController {
         navigationController?.navigationBar.backgroundColor = .none
         navigationController?.navigationBar.tintColor = .label
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        
+        // Not needed to actually reload data but I added this to fix bug where cell is still selected after going to items screen then returning back to category screen
+        tableView.reloadData()
 
     }
     
