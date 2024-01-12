@@ -18,7 +18,7 @@ https://github.com/oashrafouad/Todoey/assets/31867324/cbe74f49-265b-4468-bb15-f8
 
 1. Clone the project
   
-2. Run `pod install` and open the project from the generated `.xcworkspace` file
+2. `cd` to the project's directory and run `pod install` then open the project from the generated `.xcworkspace` file
   
 3. Go to Pods project settings on Xcode left pane then select ChameleonFramework target and change **minimum iOS deployment** version to 12.0
   
