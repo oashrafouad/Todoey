@@ -6,13 +6,13 @@
 
 This app is part of [Angela Yu's iOS Development Course](https://www.udemy.com/course/ios-13-app-development-bootcamp/), I learned **Core Data** and **Realm** covered by the course and learned to design an icon and animate a splash screen on my own! :)
 
-# Demo
-https://github.com/oashrafouad/Todoey/assets/31867324/cbe74f49-265b-4468-bb15-f8738937cc38
-
 # Try the app
 <a href="https://testflight.apple.com/join/wjAsEcA9">
   <img src="https://github.com/oashrafouad/Todoey/assets/31867324/3592a312-3878-44e1-a15e-931e57265a03" width="200">
 </a>
+
+# Demo
+https://github.com/oashrafouad/Todoey/assets/31867324/cbe74f49-265b-4468-bb15-f8738937cc38
 
 # To run the app on Xcode
 
