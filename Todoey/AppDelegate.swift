@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do
         {
             _ = try Realm()
-            
         }
         catch
         {

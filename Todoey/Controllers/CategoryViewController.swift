@@ -15,6 +15,17 @@ class CategoryViewController: UITableViewController {
     let realm = try! Realm()
     var categories: Results<Category>!
     
+    // An `IconAnimator` that runs at 30fps on the main thread
+    let iconAnimator = IconAnimator(
+        numberOfFrames: 5,
+        numberOfLoops: 20,
+        targetFramesPerSecond: 6,
+        shouldRunOnMainThread: true
+    )
+
+    // A background task to keep our app alive while we're animating
+    var backgroundTask: UIBackgroundTaskIdentifier? = nil
+    
 //    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     
     override func viewDidLoad() {
@@ -159,4 +170,29 @@ class CategoryViewController: UITableViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
+    
+    @IBAction func changeAppIconPressed(_ sender: UIBarButtonItem) {
+      
+        backgroundTask = UIApplication.shared.beginBackgroundTask()
+
+        DispatchQueue.main.asyncAfter(deadline: .now () + .seconds(3)) {
+            self.startAnimation()
+        }
+        
+    }
+    
+    private func startAnimation() {
+        // Start the animation
+        iconAnimator.startAnimation() { [weak self] in
+            // Once the animation is complete,
+            // end our background task so that iOS knows
+            // that our app has finished its work
+            if let backgroundTask = self?.backgroundTask {
+                UIApplication.shared.endBackgroundTask(backgroundTask)
+            }
+            self?.backgroundTask = nil
+        }
+
+    }
+    
 }

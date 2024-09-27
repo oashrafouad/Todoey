@@ -11,6 +11,7 @@
 		0704C6902AFA8741001C02CF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704C68F2AFA8741001C02CF /* Item.swift */; };
 		074961382B4A304C00377DC2 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074961372B4A304C00377DC2 /* LaunchViewController.swift */; };
 		078C115E2AF172E900C52576 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C115D2AF172E900C52576 /* CategoryViewController.swift */; };
+		07D27AED2CA597D900FA00E8 /* IconAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D27AEC2CA597D900FA00E8 /* IconAnimator.swift */; };
 		311FEC5E2A877AA5379F4F17 /* Pods_Todoey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A1A5807042F52E6451F9F5 /* Pods_Todoey.framework */; };
 		EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4F9239524DB00FB933B /* AppDelegate.swift */; };
 		EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */; };
@@ -24,6 +25,11 @@
 		0704C68F2AFA8741001C02CF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		074961372B4A304C00377DC2 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		078C115D2AF172E900C52576 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		078D9C0B2CA4D9930017920C /* UIApplication+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Private.h"; sourceTree = "<group>"; };
+		078D9C0C2CA4E10F0017920C /* Private-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Private-Bridging-Header.h"; sourceTree = "<group>"; };
+		07D27AE82CA5974A00FA00E8 /* LSBundleProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBundleProxy.h; sourceTree = "<group>"; };
+		07D27AEB2CA5977000FA00E8 /* LSApplicationProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSApplicationProxy.h; sourceTree = "<group>"; };
+		07D27AEC2CA597D900FA00E8 /* IconAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconAnimator.swift; sourceTree = "<group>"; };
 		46A1A5807042F52E6451F9F5 /* Pods_Todoey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todoey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D26EE27902E38C1DB91E6B0B /* Pods-Todoey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoey.release.xcconfig"; path = "Target Support Files/Pods-Todoey/Pods-Todoey.release.xcconfig"; sourceTree = "<group>"; };
 		EB2BE4F6239524DB00FB933B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,12 +128,17 @@
 		EB2BE4F8239524DB00FB933B /* Todoey */ = {
 			isa = PBXGroup;
 			children = (
+				07D27AE82CA5974A00FA00E8 /* LSBundleProxy.h */,
+				07D27AEB2CA5977000FA00E8 /* LSApplicationProxy.h */,
+				078D9C0C2CA4E10F0017920C /* Private-Bridging-Header.h */,
 				EB2BE4F9239524DB00FB933B /* AppDelegate.swift */,
+				07D27AEC2CA597D900FA00E8 /* IconAnimator.swift */,
 				07BB8D052ACDB424007BA6D5 /* Controllers */,
 				07BB8D042ACDB41B007BA6D5 /* Models */,
 				07BB8D062ACDB42C007BA6D5 /* Views */,
 				07BB8D072ACDB462007BA6D5 /* Supporting Files */,
 				EB2BE507239524DC00FB933B /* Info.plist */,
+				078D9C0B2CA4D9930017920C /* UIApplication+Private.h */,
 			);
 			path = Todoey;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 				0704C68E2AFA8736001C02CF /* Category.swift in Sources */,
 				EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */,
 				0704C6902AFA8741001C02CF /* Item.swift in Sources */,
+				07D27AED2CA597D900FA00E8 /* IconAnimator.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,8 +414,9 @@
 			baseConfigurationReference = FF79D2129CE4050C19E20BF7 /* Pods-Todoey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7GWRR7JP7Z;
+				DEVELOPMENT_TEAM = 5DFBLGGFY8;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Todoey/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -411,10 +424,40 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"compression\"",
+					"-l\"z\"",
+					"-framework",
+					"\"ChameleonFramework\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-Wl,-U,_OBJC_CLASS_$_LSBundleProxy",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.oashrafouad.todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Todoey/Private-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -423,8 +466,9 @@
 			baseConfigurationReference = D26EE27902E38C1DB91E6B0B /* Pods-Todoey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7GWRR7JP7Z;
+				DEVELOPMENT_TEAM = 5DFBLGGFY8;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Todoey/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -432,10 +476,40 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"compression\"",
+					"-l\"z\"",
+					"-framework",
+					"\"ChameleonFramework\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-Wl,-U,_OBJC_CLASS_$_LSBundleProxy",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.oashrafouad.todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Todoey/Private-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
