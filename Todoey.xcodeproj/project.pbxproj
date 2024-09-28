@@ -10,6 +10,7 @@
 		0704C68E2AFA8736001C02CF /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704C68D2AFA8736001C02CF /* Category.swift */; };
 		0704C6902AFA8741001C02CF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704C68F2AFA8741001C02CF /* Item.swift */; };
 		074961382B4A304C00377DC2 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074961372B4A304C00377DC2 /* LaunchViewController.swift */; };
+		0783B8AA2CA631AC00256823 /* MyCustomProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783B8A92CA631AC00256823 /* MyCustomProxy.m */; };
 		078C115E2AF172E900C52576 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C115D2AF172E900C52576 /* CategoryViewController.swift */; };
 		07D27AED2CA597D900FA00E8 /* IconAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D27AEC2CA597D900FA00E8 /* IconAnimator.swift */; };
 		311FEC5E2A877AA5379F4F17 /* Pods_Todoey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A1A5807042F52E6451F9F5 /* Pods_Todoey.framework */; };
@@ -24,10 +25,11 @@
 		0704C68D2AFA8736001C02CF /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0704C68F2AFA8741001C02CF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		074961372B4A304C00377DC2 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		0783B8A92CA631AC00256823 /* MyCustomProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MyCustomProxy.m; path = /Users/omar/Developer/Todoey/Todoey/MyCustomProxy.m; sourceTree = "<absolute>"; };
 		078C115D2AF172E900C52576 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		078D9C0B2CA4D9930017920C /* UIApplication+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Private.h"; sourceTree = "<group>"; };
 		078D9C0C2CA4E10F0017920C /* Private-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Private-Bridging-Header.h"; sourceTree = "<group>"; };
-		07D27AE82CA5974A00FA00E8 /* LSBundleProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBundleProxy.h; sourceTree = "<group>"; };
+		07D27AE82CA5974A00FA00E8 /* MyCustomProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCustomProxy.h; sourceTree = "<group>"; };
 		07D27AEB2CA5977000FA00E8 /* LSApplicationProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSApplicationProxy.h; sourceTree = "<group>"; };
 		07D27AEC2CA597D900FA00E8 /* IconAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconAnimator.swift; sourceTree = "<group>"; };
 		46A1A5807042F52E6451F9F5 /* Pods_Todoey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todoey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,7 +130,8 @@
 		EB2BE4F8239524DB00FB933B /* Todoey */ = {
 			isa = PBXGroup;
 			children = (
-				07D27AE82CA5974A00FA00E8 /* LSBundleProxy.h */,
+				0783B8A92CA631AC00256823 /* MyCustomProxy.m */,
+				07D27AE82CA5974A00FA00E8 /* MyCustomProxy.h */,
 				07D27AEB2CA5977000FA00E8 /* LSApplicationProxy.h */,
 				078D9C0C2CA4E10F0017920C /* Private-Bridging-Header.h */,
 				EB2BE4F9239524DB00FB933B /* AppDelegate.swift */,
@@ -266,6 +269,7 @@
 				0704C6902AFA8741001C02CF /* Item.swift in Sources */,
 				07D27AED2CA597D900FA00E8 /* IconAnimator.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
+				0783B8AA2CA631AC00256823 /* MyCustomProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

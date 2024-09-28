@@ -9,10 +9,8 @@
 #ifndef Private_Bridging_Header_h
 #define Private_Bridging_Header_h
 
-//#import "UIApplication+Private.h"
-
 #import "LSApplicationProxy.h"
-#import "LSBundleProxy.h"
+#import "MyCustomProxy.h"
 
 
 #endif /* Private_Bridging_Header_h */

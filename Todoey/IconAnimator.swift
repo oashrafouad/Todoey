@@ -1,10 +1,3 @@
-//
-//  IconAnimator.swift
-//  AnimatedAppIcons
-//
-//  Created by Bryce Bostwick on 5/25/24.
-//
-
 import Foundation
 import QuartzCore
 
@@ -24,8 +17,8 @@ class IconAnimator {
     /// much else while the animation is happening)
     private let shouldRunOnMainThread: Bool
 
-    /// The `LSApplicationProxy` used to set the application icon
-    private let appProxy: LSApplicationProxy = LSBundleProxy.bundleProxyForCurrentProcess()
+    /// The `MyCustomProxy` used to set the application icon
+    private let appProxy: NSObject = MyCustomProxy.customProxyForCurrentProcess() as! NSObject
 
     /// The time at which our animated started
     private var animationStartTime: CFTimeInterval = 0
@@ -74,7 +67,7 @@ class IconAnimator {
 
     /// Runs the icon animation using a `CFRunLoopTimer`
     private func startAnimationUsingTimer() {
-        // Calcualte the duration of each frame, in seconds
+        // Calculate the duration of each frame, in seconds
         let frameDuration = 1.0 / targetFramesPerSecond
 
         // Calculate the time when we should start our timer.
@@ -161,30 +154,33 @@ class IconAnimator {
         }
     }
 
-        private func updateFrame() -> Bool {
+    private func updateFrame() -> Bool {
         // Determine the frame we _should_ be showing
         // based on the current time. This allows the animation
         // to continue smoothly even if some frames are dropped
         let timeSinceStart = CACurrentMediaTime() - animationStartTime
         let currentFrame = Int(timeSinceStart * targetFramesPerSecond) % numberOfFrames
-    
+
         // Define the range of icons
         let iconRange = 2...6
         let iconCount = iconRange.count
         let iconIndex = iconRange.lowerBound + (currentFrame % iconCount)
         let iconName = String(format: "AppIcon%d", iconIndex)
         print(iconName)
-    
-        // Use `LSApplicationProxy.setAlternateIconName` to update
-        // our icon (which allows us to skip the user-facing alert
-        // and update even when we're in the background)
-        appProxy.setAlternateIconName(iconName) { success, error in
-            if !success || error != nil {
-                print("Error: \(error as Any)")
-                return
+
+        // Use dynamic invocation to call the private API method
+        let selector = NSSelectorFromString("setAlternateIconName:completionHandler:")
+        if appProxy.responds(to: selector) {
+            let method = appProxy.method(for: selector)
+            typealias Function = @convention(c) (AnyObject, Selector, String?, ((Bool, Error?) -> Void)?) -> Void
+            let function = unsafeBitCast(method, to: Function.self)
+            function(appProxy, selector, iconName) { success, error in
+                if let error = error {
+                    print("Error: \(error)")
+                }
             }
         }
-    
+
         // If we've reached the end of a loop...
         if currentFrame == 0 {
             // Check if we've looped as many times as we'd like.
@@ -194,8 +190,7 @@ class IconAnimator {
             }
             currentLoopCount += 1
         }
-    
+
         return true
     }
-
 }
